@@ -14,5 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
+
+Route::get('/acerca', function () {
+    return view('acerca');
+});
+
+Route::get('/campesinos', function () {
+    return view('campesinos');
+});
+
+Route::get('/cultivos', function () {
+    return view('cultivos');
+});
+
+Route::get("/cultivosdecampesino{id_campesino}", function ($id_campesino = null) {
+    return view('cultivos', compact('id_campesino'));
+});
+
+Route::get("/cultivodetalle{id_cultivo}", function ($id_cultivo = null) {
+    return view('cultivodetalle', compact('id_cultivo'));
+});
+// 
+
+// 
+
