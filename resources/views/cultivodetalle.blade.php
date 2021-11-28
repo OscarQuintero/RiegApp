@@ -1,33 +1,42 @@
 @php
-  
-  $IDCultivo = "ID";
-  $NombreCultivo = "Nombre del Cultivo";
-  $NombrePropietario = "Nombre del Propietario";
-  $NombreEspecie = "Nombre de especie";
+    if(isset($id_cultivo)) {
+       
+        $CultivoDetalleQueryResult = DB::table('VistaCultivo')->where('IDCultivo', $id_cultivo)->get();
+        $cultivo = $CultivoDetalleQueryResult->first();
 
-  $ListaDetallesCultivo = [
-    'Nombre del Propietario' => '',
-    'Especie Vegetal' => '',
-    'Área' => '',
-    'Caudal del sistema de Riego' => '',
-    'Volumen requerido al día' => ''
-  ];
+        $ListaDetallesCultivo = [
+            'Propietario' => $cultivo->NombrePropietario,
+            'Vegetal' => $cultivo->NombreEspecie,            
+            'Caudal de Riego' => $cultivo->CaudalDeRiego.' L/s',
+            'Volumen requerido al día' => $cultivo->VolumenAguaRequeridaAlDia.' L',
+            'Área' => $cultivo->Area.' m2'
+        ];
+    }else{
+        
+        $id_cultivo = "No se envió ID";
+        $CultivoDetalleQueryResult = DB::table('VistaCultivo')->get();
+    }
+    
 
-  
+    // $IDCultivo = "ID";
+    // $NombreCultivo = "Nombre del Cultivo";
+    // $NombrePropietario = "Nombre del Propietario";
+    // $NombreEspecie = "Nombre de especie";
+
+    
+
+    
+
 
 @endphp
 @extends('main')
 @section('section-title')
-	Cultivo: {{$NombreCultivo}}
+	Cultivo: {{$cultivo->NombreCultivo}}
 @endsection
 @section('content')
 	Cultivo con ID:
-	@if(isset($id_cultivo)) 
-		{{$id_cultivo}}
-	@else
-		{{"No se envió ID"}}
-	@endif	
-
+    {{$id_cultivo}}
+	
 
 	<div class="container px-6 mx-auto grid">
         <h3
@@ -62,7 +71,7 @@
                   <p
                     class="text-2xl font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    Valor: {{$valor}}
+                    {{$valor}}
                   </p>
                 </div>                
             </div> 
@@ -74,7 +83,7 @@
         >
             Sección 2
         </h3>
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+        {{-- <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             @for($k = 0; $k < 4; $k++)
             <!-- Card -->
             <a href="{{$IDCultivo}}">
@@ -145,7 +154,7 @@
             </div> 
             </a> 
             @endfor           
-        </div>
+        </div> --}}
 	</div>
 
 @endsection
