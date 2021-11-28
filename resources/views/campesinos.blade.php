@@ -1,8 +1,9 @@
 @php
-		
-	$IDCampesino = "ID";
-	$NombreCampesino = "Nombre del Campesino";
-	$CantidadDeCultivos = 3;
+	
+	$VistaCampesinosQueryResult = DB::table('VistaCampesinosConCultivos')->get();	
+	// $IDCampesino = "ID";
+	// $NombreCampesino = "Nombre del Campesino";
+	// $CantidadDeCultivos = 3;
 
 @endphp
 @extends('main')
@@ -13,9 +14,9 @@
 	
 	<div class="container px-6 mx-auto grid">
 		<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
-			@for($k = 0; $k < 4; $k++)
+			@foreach($VistaCampesinosQueryResult as $campesino)
             <!-- Card -->
-            <a href="/cultivosdecampesino{{$IDCampesino}}">
+            <a href="/cultivosdecampesino{{$campesino->IDCampesino}}">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"          
               >
@@ -32,17 +33,17 @@
                   <p
                     class="text-3xl font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    {{$NombreCampesino}}
+                    {{$campesino->NombreCampesino}}
                   </p>
                   <p
                     class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400"
                   >
-                    {{$CantidadDeCultivos}} Cultivos
+                    {{$campesino->CantidadDeCultivos}} Cultivos
                   </p>
                 </div>                
             </div> 
             </a> 
-            @endfor           
+            @endforeach           
         </div>
 	</div>
 @endsection
