@@ -1,9 +1,19 @@
 @php
+	if(isset($id_campesino)) {
+		$CultivosQueryResult = DB::table('VistaCultivo')->where('IDCampesino',$id_campesino)->get();
+	}else{
 		
-	$IDCultivo = "ID";
-	$NombreCultivo = "Nombre del Cultivo";
-	$NombrePropietario = "Nombre del Propietario";
-	$NombreEspecie = "Nombre de especie";
+		$id_campesino = "No se envió ID";
+		$CultivosQueryResult = DB::table('VistaCultivo')->get();
+	}
+		
+	// $IDCultivo = "ID";
+	// $NombreCultivo = "Nombre del Cultivo";
+	// $NombrePropietario = "Nombre del Propietario";
+	// $NombreEspecie = "Nombre de especie";
+	
+	
+	
 
 @endphp
 @extends('main')
@@ -12,18 +22,15 @@
 @endsection
 @section('content')
 	Campesino con ID:
-	@if(isset($id_campesino)) 
-		{{$id_campesino}}
-	@else
-		{{"No se envió ID"}}
-	@endif	
+	{{$id_campesino}}
+	
 
 	
 	<div class="container px-6 mx-auto grid">
 		<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
-			@for($k = 0; $k < 4; $k++)
+			@foreach($CultivosQueryResult as $cultivo)
             <!-- Card -->
-            <a href="/cultivodetalle{{$IDCultivo}}">
+            <a href="/cultivodetalle{{$cultivo->IDCultivo}}">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"          
               >
@@ -40,21 +47,21 @@
                   <p
                     class="text-3xl font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    {{$NombreCultivo}}
+                    {{$cultivo->NombreCultivo}}
                   </p>
                   <p
                     class="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400"
                   >
-                    {{$NombreEspecie}} 
+                    {{$cultivo->NombreEspecie}} 
                   <p
                     class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-400"
                   >
-                    {{$NombrePropietario}} 
+                    {{$cultivo->NombrePropietario}} 
                   </p>
                 </div>                
             </div> 
             </a> 
-            @endfor           
+            @endforeach           
         </div>
 	</div>
 
