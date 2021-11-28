@@ -1,8 +1,8 @@
 
 
-CREATE VIEW
+CREATE OR REPLACE VIEW 
 VistaCultivo AS
-SELECT IDCultivo, Cultivo.IDCampesino, NombreCultivo, Nombre as NombrePropietario, EspecieVegetal.IDEspecieVegetal, NombreEspecie, CaudalDeRiego, VolumenAguaRequeridaAlDia FROM Cultivo 
+SELECT IDCultivo, Cultivo.IDCampesino, NombreCultivo, Nombre as NombrePropietario, Area, EspecieVegetal.IDEspecieVegetal, NombreEspecie, CaudalDeRiego, VolumenAguaRequeridaAlDia FROM Cultivo 
 	JOIN Campesino
     ON Cultivo.IDCampesino = Campesino.IDCampesino
     JOIN EspecieVegetal 
