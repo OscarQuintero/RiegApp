@@ -36,7 +36,16 @@ Route::get("/cultivosdecampesino{id_campesino}", function ($id_campesino = null)
 Route::get("/cultivodetalle{id_cultivo}", function ($id_cultivo = null) {
     return view('cultivodetalle', compact('id_cultivo'));
 });
+
+Route::get('/planesderiego', function () {
+    return view('planesderiego');
+});
+
+Route::get('/planesderiegodelcultivo{id_cultivo}', function ($id_cultivo = null) {
+    return view('planesderiego', compact('id_cultivo'));
+});
 // 
+
 
 // 
 
