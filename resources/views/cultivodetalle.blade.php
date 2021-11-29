@@ -1,8 +1,18 @@
 @php
     if(isset($id_cultivo)) {
        
-        $CultivoDetalleQueryResult = DB::table('VistaCultivo')->where('IDCultivo', $id_cultivo)->get();
+        $CultivoDetalleQueryResult = DB::table('VistaCultivo')
+                                            ->where('IDCultivo', $id_cultivo)
+                                            ->get();
         $cultivo = $CultivoDetalleQueryResult->first();
+        $ClimaPorDiaQueryResult = DB::table('ClimaPorDia')
+                                            ->where('IDCultivo', $id_cultivo)
+                                            ->get();
+        $clima = $ClimaPorDiaQueryResult->first();
+        $PlanDeRiegoQueryResult = DB::table('PlanDeRiego')
+                                            ->where('IDCultivo', $id_cultivo)
+                                            ->get();
+
 
         $ListaDetallesCultivo = [
             'Propietario' => $cultivo->NombrePropietario,
@@ -10,6 +20,13 @@
             'Caudal de Riego' => $cultivo->CaudalDeRiego.' L/s',
             'Volumen requerido al día' => $cultivo->VolumenAguaRequeridaAlDia.' L',
             'Área' => $cultivo->Area.' m2'
+        ];
+
+        $ListaDetallesClima = [
+            'Fecha' => $clima->Fecha,
+            'Temperatura' => $clima->Temperatura.'ºC',            
+            'Humedad' => $clima->Humedad.' %',
+            'Precipitación' => $clima->Precipitacion.' %'            
         ];
     }else{
         
@@ -81,12 +98,12 @@
         <h3
         class="mb-4 text-3xl font-semibold text-gray-600 dark:text-gray-300"
         >
-            Sección 2
+            Clima para hoy
         </h3>
-        {{-- <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            @for($k = 0; $k < 4; $k++)
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            @foreach($ListaDetallesClima as $propiedad => $valor)
             <!-- Card -->
-            <a href="{{$IDCultivo}}">
+            <a href="">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"          
               >
@@ -104,28 +121,28 @@
                   <p
                     class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400"
                   >
-                    {{$NombreEspecie}} 
+                    {{$propiedad}} 
                   
                   <p
                     class="text-2xl font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    {{$NombreCultivo}}
+                    {{$valor}}
                   </p>
                 </div>                
             </div> 
             </a> 
-            @endfor           
+            @endforeach         
         </div>
 
         <h3
         class="mb-4 text-3xl font-semibold text-gray-600 dark:text-gray-300"
         >
-            Sección 3
+            Planes de Riego
         </h3>
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            @for($k = 0; $k < 4; $k++)
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+            @foreach($PlanDeRiegoQueryResult as $plan)
             <!-- Card -->
-            <a href="{{$IDCultivo}}">
+            <a href="/planesderiegodelcultivo{{1}}">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"          
               >
@@ -143,18 +160,18 @@
                   <p
                     class="mb-2 text-xl font-medium text-gray-600 dark:text-gray-400"
                   >
-                    {{$NombreEspecie}} 
+                    {{$plan->Fecha}} 
                   
                   <p
                     class="text-2xl font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    {{$NombreCultivo}}
+                    {{$plan->PorcentajeAgua}} %
                   </p>
                 </div>                
             </div> 
             </a> 
-            @endfor           
-        </div> --}}
+            @endforeach           
+        </div>
 	</div>
 
 @endsection
