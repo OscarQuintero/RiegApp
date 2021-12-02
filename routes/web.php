@@ -44,6 +44,14 @@ Route::get('/planesderiego', function () {
 Route::get('/planesderiegodelcultivo{id_cultivo}', function ($id_cultivo = null) {
     return view('planesderiego', compact('id_cultivo'));
 });
+
+Route::get('/agregarplanderiego{id_cultivo}', function ($id_cultivo = null) {
+    return view('agregarplanderiego', compact('id_cultivo'));
+});
+
+Route::get('/algoritmoplanderiego' , function () {
+    return view('algoritmoplanderiego');
+});
 // 
 
 

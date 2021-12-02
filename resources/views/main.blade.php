@@ -18,12 +18,14 @@
        
 
         <main class="h-full overflow-y-auto">
+          <div class="container px-6 mx-auto grid">
             <h2
               class="my-6 text-4xl font-semibold text-gray-700 dark:text-gray-200"
             >
               @yield('section-title')
             </h2>
-          @yield('content')
+            @yield('content')
+          </div>
         </main>
       </div>
     </div>

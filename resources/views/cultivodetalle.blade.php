@@ -142,7 +142,7 @@
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
             @foreach($PlanDeRiegoQueryResult as $plan)
             <!-- Card -->
-            <a href="/planesderiegodelcultivo{{1}}">
+            <a href="/planesderiegodelcultivo{{$id_cultivo}}">
             <div
                 class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"          
               >
@@ -165,7 +165,7 @@
                   <p
                     class="text-2xl font-semibold text-gray-700 dark:text-gray-200"
                   >
-                    {{$plan->PorcentajeAgua}} %
+                    {{$plan->PorcentajeAgua}} % de agua
                   </p>
                 </div>                
             </div> 

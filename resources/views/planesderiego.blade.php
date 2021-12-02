@@ -1,20 +1,25 @@
 @php
-	// if(isset($id_cultivo)) {
-	// 	$CultivosQueryResult = DB::table('VistaCultivo')->where('IDCampesino',$id_campesino)->get();
-	// }else{
+	if(isset($id_cultivo)) {
+		$PlanDeRiegoQueryResult = DB::table('VistaPlanesDeRiego')
+									->where('IDCultivo',$id_cultivo)
+									->orderBy('Fecha', 'asc')
+									->get();
+	}else{
 		
-	// 	$id_cultivo = "No se envió ID";
-	// 	$CultivosQueryResult = DB::table('VistaCultivo')->get();
-	// }
+		$id_cultivo = "No se envió ID";
+		
+		$PlanDeRiegoQueryResult = DB::table('VistaPlanesDeRiego')
+									->orderBy('Fecha', 'asc')
+									->get();
+		
+	}
+	$rows = $PlanDeRiegoQueryResult->count();
 		
 	// $IDCultivo = "ID";
 	// $NombreCultivo = "Nombre del Cultivo";
 	// $NombrePropietario = "Nombre del Propietario";
 	// $NombreEspecie = "Nombre de especie";
-	$PlanDeRiegoQueryResult = DB::table('VistaPlanesDeRiego')
-									->orderBy('Fecha', 'asc')
-									->get();
-	$rows = $PlanDeRiegoQueryResult->count();
+	
 	
 	
 
@@ -25,7 +30,7 @@
 @endsection
 @section('content')
 	Cultivo con ID:
-	{{-- {{$id_cultivo}} --}}	
+	{{$id_cultivo}}	
 			<h4
               class="mb-4 text-3xl font-semibold text-gray-600 dark:text-gray-300"
             >
@@ -120,6 +125,10 @@
                 <!-- Pagination -->
                 
               </div>
-            </div>  
+
+            </div> 
+            <button class="px-10 py-4 font-medium leading-5 text-2xl text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                  + Agregar Plan de Riego
+            </button> 
     
 @endsection
